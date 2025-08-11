@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Contos de Fadas — Catálogo Infantil</title>
+		<meta
+			name="description"
+			content="Catálogo de contos de fadas infantis famosos com detalhes e links de compra."
+		/>
+		<style>
+			:root {
+				--bg: #0f1020;
+				--bg2: #191a2e;
+				--card: #ffffff10;
+				--card-border: #ffffff22;
+				--text: #f6f7fb;
+				--muted: #c9c9d8;
+				--brand: #ffd166;
+				--brand2: #06d6a0;
+				--shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+				--radius: 16px;
+			}
+			* {
+				box-sizing: border-box;
+			}
+			html,
+			body {
+				height: 100%;
+			}
+			body {
+				margin: 0;
+				font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu,
+					Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+				color: var(--text);
+				background: radial-gradient(
+						1200px 600px at 20% -10%,
+						#2b2d55 0%,
+						transparent 60%
+					),
+					radial-gradient(1200px 600px at 100% 0%, #43235a 0%, transparent 60%),
+					var(--bg);
+			}
+			a {
+				color: inherit;
+			}
+			.container {
+				max-width: 1100px;
+				margin-inline: auto;
+				padding: 24px;
+			}
+
+			/* Header */
+			header {
+				position: sticky;
+				top: 0;
+				z-index: 20;
+				backdrop-filter: saturate(1.2) blur(8px);
+				background: linear-gradient(to bottom, #00000066, #00000022);
+				border-bottom: 1px solid var(--card-border);
+			}
+			.brand {
+				display: flex;
+				align-items: center;
+				gap: 12px;
+			}
+			.logo {
+				display: grid;
+				place-items: center;
+				width: 40px;
+				height: 40px;
+				border-radius: 12px;
+				background: linear-gradient(135deg, var(--brand), var(--brand2));
+				color: #111;
+				font-weight: 900;
+			}
+			nav {
+				display: flex;
+				gap: 8px;
+			}
+			.tab {
+				padding: 10px 14px;
+				border-radius: 12px;
+				border: 1px solid var(--card-border);
+				background: #ffffff08;
+				cursor: pointer;
+				color: var(--text);
+			}
+			.tab[aria-selected="true"] {
+				background: #fff;
+				color: #111;
+			}
+
+			/* Sections */
+			section {
+				display: none;
+			}
+			section.active {
+				display: block;
+			}
+
+			/* Grid */
+			.grid {
+				display: grid;
+				gap: 16px;
+				grid-template-columns: repeat(1, 1fr);
+			}
+
+			/* Card */
+			.card {
+				border: 1px solid var(--card-border);
+				border-radius: var(--radius);
+				background: var(--card);
+				overflow: hidden;
+				box-shadow: var(--shadow);
+				cursor: pointer;
+				transition: 0.25s transform, 0.25s border-color;
+			}
+			.card:focus-visible {
+				outline: 3px solid #fff;
+			}
+			.card:hover {
+				transform: translateY(-2px);
+				border-color: #ffffff66;
+			}
+			.thumb {
+				aspect-ratio: 4/5;
+				background: linear-gradient(180deg, #ffffff22, #00000033);
+				display: grid;
+				place-items: center;
+				font-size: 40px;
+				width: 30%;
+				height: 20%;
+			}
+			.thumb img {
+				width: 90%;
+			}
+			.title {
+				padding: 12px 14px;
+				font-weight: 700;
+				margin: 3%;
+				min-width: 150px;
+			}
+			.tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 6px;
+				padding: 0 14px 14px;
+			}
+			.tag {
+				font-size: 11px;
+				padding: 3px 8px;
+				border-radius: 999px;
+				border: 1px solid var(--card-border);
+				background: #ffffff14;
+				color: #e9e9f5;
+			}
+
+			/* Modal */
+			.modal {
+				position: fixed;
+				inset: 0;
+				display: none;
+			}
+			.modal.open {
+				display: block;
+			}
+			.backdrop {
+				position: absolute;
+				inset: 0;
+				background: #000a;
+				backdrop-filter: blur(3px);
+			}
+			.dialog {
+				position: relative;
+				z-index: 1;
+				max-width: 900px;
+				margin: 8vh auto;
+				border-radius: 22px;
+				overflow: hidden;
+				border: 1px solid var(--card-border);
+				background: linear-gradient(180deg, #ffffff1a, #ffffff0b);
+			}
+			.dialog-grid {
+				display: grid;
+			}
+			@media (min-width: 860px) {
+				.dialog-grid {
+					grid-template-columns: 1fr 1fr;
+				}
+			}
+			.dialog-figure {
+				aspect-ratio: 1/1;
+				background: #0003;
+				display: grid;
+				place-items: center;
+				font-size: 56px;
+			}
+			.dialog-body {
+				padding: 22px;
+			}
+			.dialog h2 {
+				margin: 0 0 6px;
+				font-size: 28px;
+			}
+			.dialog p {
+				color: var(--muted);
+			}
+			.dialog .cta {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				margin-top: 14px;
+				background: #fff;
+				color: #111;
+				padding: 10px 14px;
+				border-radius: 12px;
+				text-decoration: none;
+			}
+			.close {
+				position: absolute;
+				top: 10px;
+				right: 10px;
+				background: #ffffff18;
+				border: 1px solid var(--card-border);
+				color: #fff;
+				padding: 6px 10px;
+				border-radius: 999px;
+				cursor: pointer;
+			}
+
+			/* Footer */
+			footer {
+				border-top: 1px solid var(--card-border);
+				background: #00000022;
+				color: #e9e9f0;
+			}
+			.foot {
+				display: flex;
+				gap: 12px;
+				align-items: center;
+				justify-content: space-between;
+				flex-wrap: wrap;
+			}
+
+			/* Contacts */
+			.contacts {
+				display: grid;
+				gap: 16px;
+				grid-template-columns: repeat(1, 1fr);
+			}
+			@media (min-width: 720px) {
+				.contacts {
+					grid-template-columns: repeat(2, 1fr);
+				}
+			}
+			@media (min-width: 1024px) {
+				.contacts {
+					grid-template-columns: repeat(2, 1fr);
+				}
+			}
+			.person {
+				border: 1px solid var(--card-border);
+				border-radius: 16px;
+				background: var(--card);
+				padding: 16px;
+				text-align: center;
+				box-shadow: var(--shadow);
+			}
+			.avatar {
+				width: 88px;
+				height: 88px;
+				border-radius: 50%;
+				background: linear-gradient(135deg, #fff, #eee);
+				margin: 0 auto 10px;
+				display: grid;
+				place-items: center;
+				color: #333;
+				font-weight: 800;
+			}
+			.person a {
+				color: var(--brand);
+				text-decoration: underline;
+			}
+			.livro {
+				display: flex;
+				flex-direction: row;
+				width: 100%;
+				position: relative;
+				overflow: hidden;
+				z-index: 1;
+			}
+			.livro::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				filter: blur(8px) brightness(50%);
+				z-index: -1;
+			}
+			#livro-cinderela::before {
+				background: url("./fundo_livros/cinderela.jpg") center/cover no-repeat;
+			}
+			#livro-branca-de-neve::before {
+				background: url("./fundo_livros/branca-de-neve.webp") center/cover
+					no-repeat;
+			}
+			#livro-chapeuzinho-vermelho::before {
+				background: url("./fundo_livros/chapeuzinho-vermelho.jpg") center/cover
+					no-repeat;
+			}
+			#livro-a-bela-e-a-fera::before {
+				background: url("./fundo_livros/a-bela-e-a-fera.jpg") center/cover
+					no-repeat;
+			}
+			#livro-a-bela-adormecida::before {
+				background: url("./fundo_livros/a-bela-adormecida.jpg") center/cover
+					no-repeat;
+			}
+			#livro-os-tres-porquinhos::before {
+				background: url("./fundo_livros/os-tres-porquinhos.webp") center/cover
+					no-repeat;
+			}
+			#livro-rapunzel::before {
+				background: url("./fundo_livros/rapunzel.webp") center/cover no-repeat;
+			}
+			#livro-a-pequena-sereia::before {
+				background: url("./fundo_livros/a-pequena-sereia.jpg") center/cover
+					no-repeat;
+			}
+			.categorias {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				width: 10%;
+				margin-left: 2%;
+				margin-right: 2%;
+			}
+			.categorias_texto {
+				font-size: small;
+				margin-left: 10%;
+			}
+			.texto_livro {
+				padding: 3%;
+				width: 50%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			@media (max-width: 720px) {
+				.thumb {
+					width: 100%;
+					max-height: 200px;
+				}
+				.thumb img {
+					padding-top: 10px;
+					width: 120px;
+				}
+				.livro {
+					flex-direction: column;
+					align-items: center;
+					justify-content: center;
+				}
+				.categorias {
+					margin: 0;
+					width: 100%;
+					align-items: center;
+					padding: 10px;
+				}
+				.categorias_texto {
+					margin: 0;
+				}
+				.texto_livro {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					margin: 0;
+					width: 80%;
+				}
+				.title {
+					padding: 10px;
+					font-weight: 700;
+					margin: 3%;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<div
+				class="container"
+				style="
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					gap: 16px;
+					padding-block: 14px;
+				"
+			>
+				<div class="brand">
+					<div class="logo" aria-hidden>CF</div>
+					<div>
+						<div
+							style="
+								opacity: 0.8;
+								font-size: 12px;
+								letter-spacing: 0.2em;
+								text-transform: uppercase;
+							"
+						>
+							Coleção
+						</div>
+						<strong style="font-size: 18px">Contos de Fadas</strong>
+					</div>
+				</div>
+				<nav>
+					<button
+						class="tab"
+						id="tab-home"
+						aria-selected="true"
+						aria-controls="home"
+					>
+						Home
+					</button>
+					<button class="tab" id="tab-contatos" aria-controls="contatos">
+						Contatos
+					</button>
+				</nav>
+			</div>
+		</header>
+
+		<main class="container">
+			<!-- HOME -->
+			<section id="home" class="active" aria-labelledby="tab-home">
+				<h1 style="margin: 6px 0 14px; font-size: 28px">
+					Catálogo de Contos Clássicos
+				</h1>
+				<p style="margin: 0 0 20px; color: var(--muted)">
+					Clique em um bloco para ver detalhes e o link de compra. Para fechar o
+					painel, clique fora dele ou pressione ESC.
+				</p>
+
+				<div class="grid" id="books">
+					<!-- Os cards são preenchidos no HTML com data-* e o JS cuida do modal -->
+
+					<article
+						class="card"
+						tabindex="0"
+						data-title="Cinderela"
+						data-story="Moça bondosa maltratada pela madrasta e suas filhas, Cinderela recebe a ajuda de uma fada madrinha para ir ao baile. Ao perder o sapatinho de cristal, o príncipe inicia a busca por sua dona."
+						data-link="https://www.amazon.com.br/s?k=cinderela+livro"
+					>
+						<div class="livro" id="livro-cinderela">
+							<div class="thumb" aria-hidden>
+								<img src="./capa_livros/cinderela.png" />
+							</div>
+							<div class="categorias">
+								<div class="title">Cinderela</div>
+								<h3 class="categorias_texto">Categorias</h3>
+								<div class="tags">
+									<span class="tag">Bondade</span
+									><span class="tag">Clássico</span>
+								</div>
+							</div>
+							<p class="texto_livro">
+								Moça bondosa maltratada pela madrasta e suas filhas, Cinderela
+								recebe a ajuda de uma fada madrinha para ir ao baile. Ao perder
+								o sapatinho de cristal, o príncipe inicia a busca por sua dona.
+							</p>
+						</div>
+					</article>
+
+					<article
+						class="card"
+						tabindex="0"
+						data-title="Branca de Neve"
+						data-story="Perseguida por sua madrasta, a rainha má, Branca de Neve encontra abrigo na casa de sete anões. Um feitiço a faz dormir até o beijo do amor verdadeiro."
+						data-link="https://www.amazon.com.br/s?k=branca+de+neve+livro"
+					>
+						<div class="livro" id="livro-branca-de-neve">
+							<div class="thumb" aria-hidden>
+								<img src="./capa_livros/branca_de_neve.webp" />
+							</div>
+							<div class="categorias">
+								<div class="title">Branca de Neve</div>
+								<h3 class="categorias_texto">Categorias</h3>
+								<div class="tags">
+									<span class="tag">Coragem</span><span class="tag">Magia</span>
+								</div>
+							</div>
+							<p class="texto_livro">
+								Perseguida por sua madrasta, a rainha má, Branca de Neve
+								encontra abrigo na casa de sete anões. Um feitiço a faz dormir
+								até o beijo do amor verdadeiro.
+							</p>
+						</div>
+					</article>
+
+					<article
+						class="card"
+						tabindex="0"
+						data-title="Chapeuzinho Vermelho"
+						data-story="Uma menina visita a avó e cruza o caminho com um lobo astuto. A história alerta sobre prudência e seguir bons conselhos."
+						data-link="https://www.amazon.com.br/s?k=chapeuzinho+vermelho+livro"
+					>
+						<div class="livro" id="livro-chapeuzinho-vermelho">
+							<div class="thumb" aria-hidden>
+								<img src="./capa_livros/chapeuzin_vermelho.png" />
+							</div>
+							<div class="categorias">
+								<div class="title">Chapeuzinho Vermelho</div>
+								<h3 class="categorias_texto">Categorias</h3>
+								<div class="tags">
+									<span class="tag">Aventura</span
+									><span class="tag">Cuidado</span>
+								</div>
+							</div>
+							<p class="texto_livro">
+								Uma menina visita a avó e cruza o caminho com um lobo astuto. A
+								história alerta sobre prudência e seguir bons conselhos.
+							</p>
+						</div>
+					</article>
+
+					<article
+						class="card"
+						tabindex="0"
+						data-title="A Bela e a Fera"
+						data-story="Bela troca de lugar com o pai e passa a viver no castelo de uma Fera. Com o tempo, descobre a gentileza por trás da aparência."
+						data-link="https://www.amazon.com.br/s?k=a+bela+e+a+fera+livro"
+					>
+						<div class="livro" id="livro-a-bela-e-a-fera">
+							<div class="thumb" aria-hidden>
+								<img src="./capa_livros/a_bela_e_a_fera.png" />
+							</div>
+							<div class="categorias">
+								<div class="title">A Bela e a Fera</div>
+								<h3 class="categorias_texto">Categorias</h3>
+								<div class="tags">
+									<span class="tag">Empatia</span><span class="tag">Amor</span>
+								</div>
+							</div>
+							<p class="texto_livro">
+								Bela troca de lugar com o pai e passa a viver no castelo de uma
+								Fera. Com o tempo, descobre a gentileza por trás da aparência.
+							</p>
+						</div>
+					</article>
+
+					<article
+						class="card"
+						tabindex="0"
+						data-title="A Bela Adormecida"
+						data-story="Amaldiçoada ao nascer, a princesa cai num sono profundo até ser despertada pelo amor verdadeiro."
+						data-link="https://www.amazon.com.br/s?k=a+bela+adormecida+livro"
+					>
+						<div class="livro" id="livro-a-bela-adormecida">
+							<div class="thumb" aria-hidden>
+								<img src="./capa_livros/a_bela_adormecida.png" />
+							</div>
+							<div class="categorias">
+								<div class="title">A Bela Adormecida</div>
+								<h3 class="categorias_texto">Categorias</h3>
+								<div class="tags">
+									<span class="tag">Destino</span
+									><span class="tag">Encanto</span>
+								</div>
+							</div>
+							<p class="texto_livro">
+								Amaldiçoada ao nascer, a princesa cai num sono profundo até ser
+								despertada pelo amor verdadeiro.
+							</p>
+						</div>
+					</article>
+
+					<article
+						class="card"
+						tabindex="0"
+						data-title="Os Três Porquinhos"
+						data-story="Três irmãos constroem casas de palha, madeira e tijolos. O lobo tenta derrubá-las, ensinando sobre esforço e preparação."
+						data-link="https://www.amazon.com.br/s?k=os+tr%C3%AAs+porquinhos+livro"
+					>
+						<div class="livro" id="livro-os-tres-porquinhos">
+							<div class="thumb" aria-hidden>
+								<img src="./capa_livros/os_tres_porquinhos.webp" />
+							</div>
+							<div class="categorias">
+								<div class="title">Os Três Porquinhos</div>
+								<h3 class="categorias_texto">Categorias</h3>
+								<div class="tags">
+									<span class="tag">Trabalho</span
+									><span class="tag">Perseverança</span>
+								</div>
+							</div>
+							<p class="texto_livro">
+								Três irmãos constroem casas de palha, madeira e tijolos. O lobo
+								tenta derrubá-las, ensinando sobre esforço e preparação.
+							</p>
+						</div>
+					</article>
+
+					<article
+						class="card"
+						tabindex="0"
+						data-title="Rapunzel"
+						data-story="Trancada numa torre, Rapunzel tem cabelos longuíssimos. Um encontro inesperado muda seu destino."
+						data-link="https://www.amazon.com.br/s?k=rapunzel+livro"
+					>
+						<div class="livro" id="livro-rapunzel">
+							<div class="thumb" aria-hidden>
+								<img src="./capa_livros/rapunzel.webp" />
+							</div>
+							<div class="categorias">
+								<div class="title">Rapunzel</div>
+								<h3 class="categorias_texto">Categorias</h3>
+								<div class="tags">
+									<span class="tag">Liberdade</span
+									><span class="tag">Esperança</span>
+								</div>
+							</div>
+							<p class="texto_livro">
+								Trancada numa torre, Rapunzel tem cabelos longuíssimos. Um
+								encontro inesperado muda seu destino.
+							</p>
+						</div>
+					</article>
+
+					<article
+						class="card"
+						tabindex="0"
+						data-title="A Pequena Sereia"
+						data-story="Uma sereia curiosa deseja viver entre os humanos e faz um pacto arriscado para seguir seu coração."
+						data-link="https://www.amazon.com.br/s?k=a+pequena+sereia+livro"
+					>
+						<div class="livro" id="livro-a-pequena-sereia">
+							<div class="thumb" aria-hidden>
+								<img src="./capa_livros/a_pequena_sereia.webp" />
+							</div>
+							<div class="categorias">
+								<div class="title">A Pequena Sereia</div>
+								<h3 class="categorias_texto">Categorias</h3>
+								<div class="tags">
+									<span class="tag">Escolhas</span
+									><span class="tag">Sonhos</span>
+								</div>
+							</div>
+							<p class="texto_livro">
+								Uma sereia curiosa deseja viver entre os humanos e faz um pacto
+								arriscado para seguir seu coração.
+							</p>
+						</div>
+					</article>
+				</div>
+			</section>
+
+			<!-- CONTATOS -->
+			<section id="contatos" aria-labelledby="tab-contatos">
+				<h2 style="margin: 6px 0 14px; font-size: 28px">
+					Criadores & Contatos
+				</h2>
+				<p style="margin: 0 0 20px; color: var(--muted)">
+					Fale com nossa equipe — responderemos assim que possível.
+				</p>
+				<div class="contacts">
+					<div class="person">
+						<div class="avatar" aria-hidden>
+							<img
+								src="./contatos/bruno.png"
+								width="100%"
+								height="100%"
+								style="border-radius: 50%"
+							/>
+						</div>
+						<strong>Bruno E. Sabino</strong>
+						<div style="opacity: 0.8">
+							<a href="https://wa.me/45988090995" target="_blank"
+								>Telefone: (45) 9 8809-0995</a
+							>
+						</div>
+						<a href="mailto:bruno.eduardo.sabino@escola.pr.gov.br"
+							>bruno.eduardo.sabino@escola.pr.gov.br</a
+						>
+					</div>
+
+					<div class="person">
+						<div class="avatar" aria-hidden>
+							<img
+								src="./contatos/gustavo.png"
+								width="100%"
+								height="100%"
+								style="border-radius: 50%"
+							/>
+						</div>
+						<strong>Gustavo H. Klesener</strong>
+						<div style="opacity: 0.8">
+							<a href="https://wa.me/45988367845" target="_blank"
+								>Telefone: (45) 9 8836-7845</a
+							>
+						</div>
+						<a href="mailto:gustavo.klesener@escola.pr.gov.br"
+							>gustavo.klesener@escola.pr.gov.br</a
+						>
+					</div>
+
+					<div class="person">
+						<div class="avatar" aria-hidden>
+							<img
+								src="./contatos/joao.jpg"
+								width="100%"
+								height="100%"
+								style="border-radius: 50%"
+							/>
+						</div>
+						<strong>João P. Quezado</strong>
+						<div style="opacity: 0.8">
+							<a href="https://wa.me/45988151636" target="_blank"
+								>Telefone: (45) 9 8815-1636</a
+							>
+						</div>
+						<a href="mailto:joao.quezado@escola.pr.gov.br"
+							>joao.quezado@escola.pr.gov.br</a
+						>
+					</div>
+
+					<div class="person">
+						<div class="avatar" aria-hidden>
+							<img
+								src="./contatos/marco.jpg"
+								width="100%"
+								height="100%"
+								style="border-radius: 50%"
+							/>
+						</div>
+						<strong>Marco A. Carvalho</strong>
+						<div style="opacity: 0.8">
+							<a href="https://wa.me/45999671336" target="_blank"
+								>Telefone: (45) 9 9967-1336</a
+							>
+						</div>
+						<a href="mailto:marco.antonio.carvalho@escola.pr.gov.br"
+							>marco.antonio.carvalho@escola.pr.gov.br</a
+						>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<!-- MODAL -->
+		<div class="modal" id="modal" aria-hidden="true">
+			<div class="backdrop" id="backdrop"></div>
+			<div
+				class="dialog"
+				role="dialog"
+				aria-modal="true"
+				aria-labelledby="modal-title"
+			>
+				<button class="close" id="closeBtn" aria-label="Fechar">✕</button>
+				<div class="dialog-grid">
+					<figure class="dialog-figure" id="modal-figure" aria-hidden>
+						📖
+					</figure>
+					<div class="dialog-body">
+						<h2 id="modal-title">Título</h2>
+						<p id="modal-story">Resumo</p>
+						<a
+							id="modal-link"
+							class="cta"
+							href="#"
+							target="_blank"
+							rel="noopener"
+							>Comprar livro ↗</a
+						>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<footer>
+			<div class="container foot">
+				<small
+					>© <span id="year"></span> Contos de Fadas. Todos os direitos
+					reservados.</small
+				>
+				<div style="opacity: 0.85">
+					Feito com carinho para leitores mirins ✨
+				</div>
+			</div>
+		</footer>
+
+		<script>
+			// Utilidades
+			const $ = (sel, parent = document) => parent.querySelector(sel);
+			const $$ = (sel, parent = document) =>
+				Array.from(parent.querySelectorAll(sel));
+
+			// Tabs
+			const tabHome = $("#tab-home");
+			const tabContatos = $("#tab-contatos");
+			const secHome = $("#home");
+			const secContatos = $("#contatos");
+
+			function setTab(which) {
+				const home = which === "home";
+				tabHome.setAttribute("aria-selected", home);
+				tabContatos.setAttribute("aria-selected", !home);
+				secHome.classList.toggle("active", home);
+				secContatos.classList.toggle("active", !home);
+			}
+			tabHome.addEventListener("click", () => setTab("home"));
+			tabContatos.addEventListener("click", () => setTab("contatos"));
+
+			// Modal
+			const modal = $("#modal");
+			const backdrop = $("#backdrop");
+			const closeBtn = $("#closeBtn");
+			const mTitle = $("#modal-title");
+			const mStory = $("#modal-story");
+			const mLink = $("#modal-link");
+
+			function openModal({ title, story, link, icon }) {
+				mTitle.textContent = title;
+				mStory.textContent = story;
+				mLink.href = link || "#";
+				$("#modal-figure").textContent = icon || "📚";
+				modal.classList.add("open");
+				modal.setAttribute("aria-hidden", "false");
+				document.body.style.overflow = "hidden";
+			}
+			function closeModal() {
+				modal.classList.remove("open");
+				modal.setAttribute("aria-hidden", "true");
+				document.body.style.overflow = "";
+			}
+
+			backdrop.addEventListener("click", closeModal);
+			closeBtn.addEventListener("click", closeModal);
+			document.addEventListener("keydown", (e) => {
+				if (e.key === "Escape") closeModal();
+			});
+
+			// Clique nos cards
+			$$("#books .card").forEach((card) => {
+				function getIconFromCard() {
+					const t = card.querySelector(".thumb");
+					return t ? t.textContent.trim() : "📖";
+				}
+				const payload = {
+					title: card.dataset.title,
+					story: card.dataset.story,
+					link: card.dataset.link,
+					icon: getIconFromCard(),
+				};
+				card.addEventListener("click", () => openModal(payload));
+				card.addEventListener("keydown", (e) => {
+					if (e.key === "Enter" || e.key === " ") {
+						e.preventDefault();
+						openModal(payload);
+					}
+				});
+			});
+
+			// Ano atual
+			$("#year").textContent = new Date().getFullYear();
+		</script>
+	</body>
+</html>
