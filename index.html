@@ -146,7 +146,7 @@
 				display: flex;
 				flex-wrap: wrap;
 				gap: 6px;
-				padding: 0 14px 14px;
+				padding: 0 14px 6px;
 			}
 			.tag {
 				font-size: 11px;
@@ -155,6 +155,28 @@
 				border: 1px solid var(--card-border);
 				background: #ffffff14;
 				color: #e9e9f5;
+			}
+
+			/* NOVO: meta (classificação + autor) */
+			.meta {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				gap: 8px 10px;
+				padding: 6px 14px 14px;
+			}
+			.badge {
+				font-size: 11px;
+				padding: 3px 8px;
+				border-radius: 6px;
+				border: 1px solid var(--card-border);
+				background: #ffffff1f;
+				color: #fff;
+				white-space: nowrap;
+			}
+			.byline {
+				font-size: 12px;
+				color: var(--muted);
 			}
 
 			/* Modal */
@@ -217,6 +239,17 @@
 				padding: 10px 14px;
 				border-radius: 12px;
 				text-decoration: none;
+			}
+			.dialog-meta {
+				display: grid;
+				gap: 6px;
+				margin: 12px 0 4px;
+				font-size: 14px;
+				color: var(--text);
+			}
+			.dialog-meta strong {
+				color: var(--brand);
+				font-weight: 700;
 			}
 			.close {
 				position: absolute;
@@ -447,18 +480,22 @@
 				</p>
 
 				<div class="grid" id="books">
-					<!-- Os cards são preenchidos no HTML com data-* e o JS cuida do modal -->
-
+					<!-- CINDERELA -->
 					<article
 						class="card"
 						tabindex="0"
 						data-title="Cinderela"
 						data-story="Moça bondosa maltratada pela madrasta e suas filhas, Cinderela recebe a ajuda de uma fada madrinha para ir ao baile. Ao perder o sapatinho de cristal, o príncipe inicia a busca por sua dona."
 						data-link="https://www.amazon.com.br/s?k=cinderela+livro"
+						data-author="Charles Perrault"
+						data-rating="Livre"
 					>
 						<div class="livro" id="livro-cinderela">
 							<div class="thumb" aria-hidden>
-								<img src="./capa_livros/cinderela.png" />
+								<img
+									src="./capa_livros/cinderela.png"
+									alt="Capa do livro Cinderela"
+								/>
 							</div>
 							<div class="categorias">
 								<div class="title">Cinderela</div>
@@ -466,6 +503,10 @@
 								<div class="tags">
 									<span class="tag">Bondade</span
 									><span class="tag">Clássico</span>
+								</div>
+								<div class="meta">
+									<span class="badge">Classificação: Livre</span>
+									<span class="byline">Autor: Charles Perrault</span>
 								</div>
 							</div>
 							<p class="texto_livro">
@@ -476,22 +517,32 @@
 						</div>
 					</article>
 
+					<!-- BRANCA DE NEVE -->
 					<article
 						class="card"
 						tabindex="0"
 						data-title="Branca de Neve"
 						data-story="Perseguida por sua madrasta, a rainha má, Branca de Neve encontra abrigo na casa de sete anões. Um feitiço a faz dormir até o beijo do amor verdadeiro."
 						data-link="https://www.amazon.com.br/s?k=branca+de+neve+livro"
+						data-author="Irmãos Grimm"
+						data-rating="Livre"
 					>
 						<div class="livro" id="livro-branca-de-neve">
 							<div class="thumb" aria-hidden>
-								<img src="./capa_livros/branca_de_neve.webp" />
+								<img
+									src="./capa_livros/branca_de_neve.webp"
+									alt="Capa do livro Branca de Neve"
+								/>
 							</div>
 							<div class="categorias">
 								<div class="title">Branca de Neve</div>
 								<h3 class="categorias_texto">Categorias</h3>
 								<div class="tags">
 									<span class="tag">Coragem</span><span class="tag">Magia</span>
+								</div>
+								<div class="meta">
+									<span class="badge">Classificação: Livre</span>
+									<span class="byline">Autores: Irmãos Grimm</span>
 								</div>
 							</div>
 							<p class="texto_livro">
@@ -502,16 +553,22 @@
 						</div>
 					</article>
 
+					<!-- CHAPEUZINHO VERMELHO -->
 					<article
 						class="card"
 						tabindex="0"
 						data-title="Chapeuzinho Vermelho"
 						data-story="Uma menina visita a avó e cruza o caminho com um lobo astuto. A história alerta sobre prudência e seguir bons conselhos."
 						data-link="https://www.amazon.com.br/s?k=chapeuzinho+vermelho+livro"
+						data-author="Charles Perrault"
+						data-rating="Livre"
 					>
 						<div class="livro" id="livro-chapeuzinho-vermelho">
 							<div class="thumb" aria-hidden>
-								<img src="./capa_livros/chapeuzin_vermelho.png" />
+								<img
+									src="./capa_livros/chapeuzin_vermelho.png"
+									alt="Capa do livro Chapeuzinho Vermelho"
+								/>
 							</div>
 							<div class="categorias">
 								<div class="title">Chapeuzinho Vermelho</div>
@@ -519,6 +576,10 @@
 								<div class="tags">
 									<span class="tag">Aventura</span
 									><span class="tag">Cuidado</span>
+								</div>
+								<div class="meta">
+									<span class="badge">Classificação: Livre</span>
+									<span class="byline">Autor: Charles Perrault</span>
 								</div>
 							</div>
 							<p class="texto_livro">
@@ -528,22 +589,34 @@
 						</div>
 					</article>
 
+					<!-- A BELA E A FERA -->
 					<article
 						class="card"
 						tabindex="0"
 						data-title="A Bela e a Fera"
 						data-story="Bela troca de lugar com o pai e passa a viver no castelo de uma Fera. Com o tempo, descobre a gentileza por trás da aparência."
 						data-link="https://www.amazon.com.br/s?k=a+bela+e+a+fera+livro"
+						data-author="Jeanne-Marie Leprince de Beaumont"
+						data-rating="Livre"
 					>
 						<div class="livro" id="livro-a-bela-e-a-fera">
 							<div class="thumb" aria-hidden>
-								<img src="./capa_livros/a_bela_e_a_fera.png" />
+								<img
+									src="./capa_livros/a_bela_e_a_fera.png"
+									alt="Capa do livro A Bela e a Fera"
+								/>
 							</div>
 							<div class="categorias">
 								<div class="title">A Bela e a Fera</div>
 								<h3 class="categorias_texto">Categorias</h3>
 								<div class="tags">
 									<span class="tag">Empatia</span><span class="tag">Amor</span>
+								</div>
+								<div class="meta">
+									<span class="badge">Classificação: Livre</span>
+									<span class="byline"
+										>Autora: Jeanne-Marie Leprince de Beaumont</span
+									>
 								</div>
 							</div>
 							<p class="texto_livro">
@@ -553,16 +626,22 @@
 						</div>
 					</article>
 
+					<!-- A BELA ADORMECIDA -->
 					<article
 						class="card"
 						tabindex="0"
 						data-title="A Bela Adormecida"
 						data-story="Amaldiçoada ao nascer, a princesa cai num sono profundo até ser despertada pelo amor verdadeiro."
 						data-link="https://www.amazon.com.br/s?k=a+bela+adormecida+livro"
+						data-author="Charles Perrault"
+						data-rating="Livre"
 					>
 						<div class="livro" id="livro-a-bela-adormecida">
 							<div class="thumb" aria-hidden>
-								<img src="./capa_livros/a_bela_adormecida.png" />
+								<img
+									src="./capa_livros/a_bela_adormecida.png"
+									alt="Capa do livro A Bela Adormecida"
+								/>
 							</div>
 							<div class="categorias">
 								<div class="title">A Bela Adormecida</div>
@@ -570,6 +649,10 @@
 								<div class="tags">
 									<span class="tag">Destino</span
 									><span class="tag">Encanto</span>
+								</div>
+								<div class="meta">
+									<span class="badge">Classificação: Livre</span>
+									<span class="byline">Autor: Charles Perrault</span>
 								</div>
 							</div>
 							<p class="texto_livro">
@@ -579,16 +662,22 @@
 						</div>
 					</article>
 
+					<!-- OS TRÊS PORQUINHOS -->
 					<article
 						class="card"
 						tabindex="0"
 						data-title="Os Três Porquinhos"
 						data-story="Três irmãos constroem casas de palha, madeira e tijolos. O lobo tenta derrubá-las, ensinando sobre esforço e preparação."
 						data-link="https://www.amazon.com.br/s?k=os+tr%C3%AAs+porquinhos+livro"
+						data-author="Joseph Jacobs (coletor)"
+						data-rating="Livre"
 					>
 						<div class="livro" id="livro-os-tres-porquinhos">
 							<div class="thumb" aria-hidden>
-								<img src="./capa_livros/os_tres_porquinhos.webp" />
+								<img
+									src="./capa_livros/os_tres_porquinhos.webp"
+									alt="Capa do livro Os Três Porquinhos"
+								/>
 							</div>
 							<div class="categorias">
 								<div class="title">Os Três Porquinhos</div>
@@ -596,6 +685,10 @@
 								<div class="tags">
 									<span class="tag">Trabalho</span
 									><span class="tag">Perseverança</span>
+								</div>
+								<div class="meta">
+									<span class="badge">Classificação: Livre</span>
+									<span class="byline">Autor: Joseph Jacobs (coletor)</span>
 								</div>
 							</div>
 							<p class="texto_livro">
@@ -605,16 +698,22 @@
 						</div>
 					</article>
 
+					<!-- RAPUNZEL -->
 					<article
 						class="card"
 						tabindex="0"
 						data-title="Rapunzel"
 						data-story="Trancada numa torre, Rapunzel tem cabelos longuíssimos. Um encontro inesperado muda seu destino."
 						data-link="https://www.amazon.com.br/s?k=rapunzel+livro"
+						data-author="Irmãos Grimm"
+						data-rating="Livre"
 					>
 						<div class="livro" id="livro-rapunzel">
 							<div class="thumb" aria-hidden>
-								<img src="./capa_livros/rapunzel.webp" />
+								<img
+									src="./capa_livros/rapunzel.webp"
+									alt="Capa do livro Rapunzel"
+								/>
 							</div>
 							<div class="categorias">
 								<div class="title">Rapunzel</div>
@@ -622,6 +721,10 @@
 								<div class="tags">
 									<span class="tag">Liberdade</span
 									><span class="tag">Esperança</span>
+								</div>
+								<div class="meta">
+									<span class="badge">Classificação: Livre</span>
+									<span class="byline">Autores: Irmãos Grimm</span>
 								</div>
 							</div>
 							<p class="texto_livro">
@@ -631,16 +734,22 @@
 						</div>
 					</article>
 
+					<!-- A PEQUENA SEREIA -->
 					<article
 						class="card"
 						tabindex="0"
 						data-title="A Pequena Sereia"
 						data-story="Uma sereia curiosa deseja viver entre os humanos e faz um pacto arriscado para seguir seu coração."
 						data-link="https://www.amazon.com.br/s?k=a+pequena+sereia+livro"
+						data-author="Hans Christian Andersen"
+						data-rating="Livre"
 					>
 						<div class="livro" id="livro-a-pequena-sereia">
 							<div class="thumb" aria-hidden>
-								<img src="./capa_livros/a_pequena_sereia.webp" />
+								<img
+									src="./capa_livros/a_pequena_sereia.webp"
+									alt="Capa do livro A Pequena Sereia"
+								/>
 							</div>
 							<div class="categorias">
 								<div class="title">A Pequena Sereia</div>
@@ -648,6 +757,10 @@
 								<div class="tags">
 									<span class="tag">Escolhas</span
 									><span class="tag">Sonhos</span>
+								</div>
+								<div class="meta">
+									<span class="badge">Classificação: Livre</span>
+									<span class="byline">Autor: Hans Christian Andersen</span>
 								</div>
 							</div>
 							<p class="texto_livro">
@@ -675,6 +788,7 @@
 								width="100%"
 								height="100%"
 								style="border-radius: 50%"
+								alt="Foto de Bruno E. Sabino"
 							/>
 						</div>
 						<strong>Bruno E. Sabino</strong>
@@ -695,6 +809,7 @@
 								width="100%"
 								height="100%"
 								style="border-radius: 50%"
+								alt="Foto de Gustavo H. Klesener"
 							/>
 						</div>
 						<strong>Gustavo H. Klesener</strong>
@@ -715,6 +830,7 @@
 								width="100%"
 								height="100%"
 								style="border-radius: 50%"
+								alt="Foto de João P. Quezado"
 							/>
 						</div>
 						<strong>João P. Quezado</strong>
@@ -735,6 +851,7 @@
 								width="100%"
 								height="100%"
 								style="border-radius: 50%"
+								alt="Foto de Marco A. Carvalho"
 							/>
 						</div>
 						<strong>Marco A. Carvalho</strong>
@@ -767,6 +884,14 @@
 					</figure>
 					<div class="dialog-body">
 						<h2 id="modal-title">Título</h2>
+						<div class="dialog-meta">
+							<div>
+								<strong>Autor(a):</strong> <span id="modal-author">—</span>
+							</div>
+							<div>
+								<strong>Classificação:</strong> <span id="modal-rating">—</span>
+							</div>
+						</div>
 						<p id="modal-story">Resumo</p>
 						<a
 							id="modal-link"
@@ -822,12 +947,16 @@
 			const mTitle = $("#modal-title");
 			const mStory = $("#modal-story");
 			const mLink = $("#modal-link");
+			const mAuthor = $("#modal-author");
+			const mRating = $("#modal-rating");
 
-			function openModal({ title, story, link, icon }) {
+			function openModal({ title, story, link, icon, author, rating }) {
 				mTitle.textContent = title;
 				mStory.textContent = story;
 				mLink.href = link || "#";
 				$("#modal-figure").textContent = icon || "📚";
+				mAuthor.textContent = author || "—";
+				mRating.textContent = rating || "—";
 				modal.classList.add("open");
 				modal.setAttribute("aria-hidden", "false");
 				document.body.style.overflow = "hidden";
@@ -854,6 +983,8 @@
 					title: card.dataset.title,
 					story: card.dataset.story,
 					link: card.dataset.link,
+					author: card.dataset.author,
+					rating: card.dataset.rating,
 					icon: getIconFromCard(),
 				};
 				card.addEventListener("click", () => openModal(payload));
