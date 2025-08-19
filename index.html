@@ -137,6 +137,45 @@
 					grid-template-columns: repeat(2, 1fr);
 				}
 			}
+			/* Contacts */
+			.contacts {
+				display: grid;
+				gap: 16px;
+				grid-template-columns: repeat(1, 1fr);
+			}
+			@media (min-width: 720px) {
+				.contacts {
+					grid-template-columns: repeat(2, 1fr);
+				}
+			}
+			@media (min-width: 1024px) {
+				.contacts {
+					grid-template-columns: repeat(2, 1fr);
+				}
+			}
+			.person {
+				border: 1px solid var(--card-border);
+				border-radius: 16px;
+				background: var(--card);
+				padding: 16px;
+				text-align: center;
+				box-shadow: var(--shadow);
+			}
+			.avatar {
+				width: 88px;
+				height: 88px;
+				border-radius: 50%;
+				background: linear-gradient(135deg, #fff, #eee);
+				margin: 0 auto 10px;
+				display: grid;
+				place-items: center;
+				color: #333;
+				font-weight: 800;
+			}
+			.person a {
+				color: var(--brand);
+				text-decoration: underline;
+			}
 
 			/* Card */
 			.card {
@@ -1457,7 +1496,6 @@
 								width="100%"
 								height="100%"
 								style="border-radius: 50%"
-								alt="Foto de Bruno E. Sabino"
 							/>
 						</div>
 						<strong>Bruno E. Sabino</strong>
@@ -1478,7 +1516,6 @@
 								width="100%"
 								height="100%"
 								style="border-radius: 50%"
-								alt="Foto de Gustavo H. Klesener"
 							/>
 						</div>
 						<strong>Gustavo H. Klesener</strong>
@@ -1499,7 +1536,6 @@
 								width="100%"
 								height="100%"
 								style="border-radius: 50%"
-								alt="Foto de João P. Quezado"
 							/>
 						</div>
 						<strong>João P. Quezado</strong>
@@ -1520,7 +1556,6 @@
 								width="100%"
 								height="100%"
 								style="border-radius: 50%"
-								alt="Foto de Marco A. Carvalho"
 							/>
 						</div>
 						<strong>Marco A. Carvalho</strong>
