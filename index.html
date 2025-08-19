@@ -6,7 +6,7 @@
 		<title>Contos de Fadas — Catálogo Infantil</title>
 		<meta
 			name="description"
-			content="Catálogo de contos de fadas infantis famosos com detalhes e links de compra."
+			content="Catálogo infantil com contos de fadas, fábulas, poemas, romances infantis e lendas."
 		/>
 		<style>
 			:root {
@@ -99,11 +99,43 @@
 				display: block;
 			}
 
+			/* Subtabs (categorias dentro da Home) */
+			.subtabs {
+				display: flex;
+				gap: 8px;
+				flex-wrap: wrap;
+				margin: 10px 0 18px;
+			}
+			.subtab {
+				composes: tab;
+			}
+			.subtab {
+				padding: 8px 12px;
+				border-radius: 10px;
+				border: 1px solid var(--card-border);
+				background: #ffffff10;
+				cursor: pointer;
+			}
+			.subtab[aria-selected="true"] {
+				background: #fff;
+				color: #111;
+			}
+
 			/* Grid */
 			.grid {
 				display: grid;
-				gap: 16px;
+				gap: 10px;
 				grid-template-columns: repeat(1, 1fr);
+			}
+			@media (min-width: 680px) {
+				.grid {
+					grid-template-columns: repeat(1, 1fr);
+				}
+			}
+			@media (min-width: 1024px) {
+				.grid {
+					grid-template-columns: repeat(2, 1fr);
+				}
 			}
 
 			/* Card */
@@ -116,22 +148,25 @@
 				cursor: pointer;
 				transition: 0.25s transform, 0.25s border-color;
 				z-index: 0;
+				position: relative;
 			}
 			.card:focus-visible {
 				outline: 3px solid #fff;
+				outline-offset: 2px;
 			}
 			.card:hover {
 				transform: translateY(-2px);
 				border-color: #ffffff66;
 			}
 			.thumb {
-				aspect-ratio: 4/5;
-				background: linear-gradient(180deg, #ffffff22, #00000033);
 				display: grid;
 				place-items: center;
 				font-size: 40px;
 				width: 30%;
 				height: 20%;
+				aspect-ratio: 3/4;
+				border-right: 1px solid var(--card-border);
+				background: linear-gradient(180deg, #ffffff22, #00000033);
 			}
 			.thumb img {
 				width: 90%;
@@ -156,8 +191,6 @@
 				background: #ffffff14;
 				color: #e9e9f5;
 			}
-
-			/* NOVO: meta (classificação + autor) */
 			.meta {
 				display: flex;
 				flex-wrap: wrap;
@@ -179,6 +212,89 @@
 				color: var(--muted);
 			}
 
+			/* Livro layout */
+			.livro {
+				display: flex;
+				flex-direction: row;
+				width: 100%;
+				position: relative;
+				overflow: hidden;
+				z-index: 1;
+				gap: 12px;
+				align-items: center;
+			}
+			.livro::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				filter: blur(8px) brightness(50%);
+				z-index: -1;
+			}
+			.categorias {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				width: 10%;
+				margin-left: 2%;
+				margin-right: 2%;
+			}
+			.categorias_texto {
+				font-size: small;
+				margin-left: 10%;
+			}
+			.texto_livro {
+				padding: 3%;
+				width: 50%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				line-height: 1.6;
+			}
+			.texto_livro {
+				margin-left: 10%;
+			}
+
+			/* Responsivo */
+			@media (max-width: 720px) {
+				.thumb {
+					width: 100%;
+					max-height: 200px;
+				}
+				.thumb img {
+					padding-top: 10px;
+					width: 120px;
+				}
+				.livro {
+					flex-direction: column;
+					align-items: center;
+					justify-content: center;
+				}
+				.categorias {
+					margin: 0;
+					width: 100%;
+					align-items: center;
+					padding: 10px;
+				}
+				.categorias_texto {
+					margin: 0;
+				}
+				.texto_livro {
+					margin: 0;
+					width: 70%;
+				}
+				.title {
+					padding: 10px;
+					font-weight: 700;
+					margin: 3%;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				}
+			}
+
 			/* Modal */
 			.modal {
 				position: fixed;
@@ -187,6 +303,7 @@
 			}
 			.modal.open {
 				display: block;
+				contain: content;
 			}
 			.backdrop {
 				position: absolute;
@@ -276,152 +393,6 @@
 				justify-content: space-between;
 				flex-wrap: wrap;
 			}
-
-			/* Contacts */
-			.contacts {
-				display: grid;
-				gap: 16px;
-				grid-template-columns: repeat(1, 1fr);
-			}
-			@media (min-width: 720px) {
-				.contacts {
-					grid-template-columns: repeat(2, 1fr);
-				}
-			}
-			@media (min-width: 1024px) {
-				.contacts {
-					grid-template-columns: repeat(2, 1fr);
-				}
-			}
-			.person {
-				border: 1px solid var(--card-border);
-				border-radius: 16px;
-				background: var(--card);
-				padding: 16px;
-				text-align: center;
-				box-shadow: var(--shadow);
-			}
-			.avatar {
-				width: 88px;
-				height: 88px;
-				border-radius: 50%;
-				background: linear-gradient(135deg, #fff, #eee);
-				margin: 0 auto 10px;
-				display: grid;
-				place-items: center;
-				color: #333;
-				font-weight: 800;
-			}
-			.person a {
-				color: var(--brand);
-				text-decoration: underline;
-			}
-			.livro {
-				display: flex;
-				flex-direction: row;
-				width: 100%;
-				position: relative;
-				overflow: hidden;
-				z-index: 1;
-			}
-			.livro::before {
-				content: "";
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				filter: blur(8px) brightness(50%);
-				z-index: -1;
-			}
-			#livro-cinderela::before {
-				background: url("./fundo_livros/cinderela.jpg") center/cover no-repeat;
-			}
-			#livro-branca-de-neve::before {
-				background: url("./fundo_livros/branca-de-neve.webp") center/cover
-					no-repeat;
-			}
-			#livro-chapeuzinho-vermelho::before {
-				background: url("./fundo_livros/chapeuzinho-vermelho.jpg") center/cover
-					no-repeat;
-			}
-			#livro-a-bela-e-a-fera::before {
-				background: url("./fundo_livros/a-bela-e-a-fera.jpg") center/cover
-					no-repeat;
-			}
-			#livro-a-bela-adormecida::before {
-				background: url("./fundo_livros/a-bela-adormecida.jpg") center/cover
-					no-repeat;
-			}
-			#livro-os-tres-porquinhos::before {
-				background: url("./fundo_livros/os-tres-porquinhos.webp") center/cover
-					no-repeat;
-			}
-			#livro-rapunzel::before {
-				background: url("./fundo_livros/rapunzel.webp") center/cover no-repeat;
-			}
-			#livro-a-pequena-sereia::before {
-				background: url("./fundo_livros/a-pequena-sereia.jpg") center/cover
-					no-repeat;
-			}
-			.categorias {
-				display: flex;
-				flex-direction: column;
-				align-items: flex-start;
-				width: 10%;
-				margin-left: 2%;
-				margin-right: 2%;
-			}
-			.categorias_texto {
-				font-size: small;
-				margin-left: 10%;
-			}
-			.texto_livro {
-				padding: 3%;
-				width: 50%;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-			}
-			@media (max-width: 720px) {
-				.thumb {
-					width: 100%;
-					max-height: 200px;
-				}
-				.thumb img {
-					padding-top: 10px;
-					width: 120px;
-				}
-				.livro {
-					flex-direction: column;
-					align-items: center;
-					justify-content: center;
-				}
-				.categorias {
-					margin: 0;
-					width: 100%;
-					align-items: center;
-					padding: 10px;
-				}
-				.categorias_texto {
-					margin: 0;
-				}
-				.texto_livro {
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					margin: 0;
-					width: 80%;
-				}
-				.title {
-					padding: 10px;
-					font-weight: 700;
-					margin: 3%;
-					display: flex;
-					justify-content: center;
-					align-items: center;
-				}
-			}
 		</style>
 	</head>
 	<body>
@@ -471,305 +442,1003 @@
 		<main class="container">
 			<!-- HOME -->
 			<section id="home" class="active" aria-labelledby="tab-home">
-				<h1 style="margin: 6px 0 14px; font-size: 28px">
-					Catálogo de Contos Clássicos
-				</h1>
-				<p style="margin: 0 0 20px; color: var(--muted)">
-					Clique em um bloco para ver detalhes e o link de compra. Para fechar o
-					painel, clique fora dele ou pressione ESC.
+				<h1 style="margin: 6px 0 8px; font-size: 28px">Catálogo</h1>
+				<p style="margin: 0 0 12px; color: var(--muted)">
+					Explore por categoria e clique em um bloco para ver detalhes e link de
+					compra.
 				</p>
 
-				<div class="grid" id="books">
-					<!-- CINDERELA -->
-					<article
-						class="card"
+				<!-- Subtabs de gêneros -->
+				<div class="subtabs" role="tablist" aria-label="Categorias">
+					<button
+						class="subtab"
+						id="genre-tab-fabulas"
+						role="tab"
+						aria-selected="false"
+						aria-controls="genre-fabulas"
 						tabindex="0"
-						data-title="Cinderela"
-						data-story="Moça bondosa maltratada pela madrasta e suas filhas, Cinderela recebe a ajuda de uma fada madrinha para ir ao baile. Ao perder o sapatinho de cristal, o príncipe inicia a busca por sua dona."
-						data-link="https://www.amazon.com.br/s?k=cinderela+livro"
-						data-author="Charles Perrault"
-						data-rating="Livre"
 					>
-						<div class="livro" id="livro-cinderela">
-							<div class="thumb" aria-hidden>
-								<img
-									src="./capa_livros/cinderela.png"
-									alt="Capa do livro Cinderela"
-								/>
-							</div>
-							<div class="categorias">
-								<div class="title">Cinderela</div>
-								<h3 class="categorias_texto">Categorias</h3>
-								<div class="tags">
-									<span class="tag">Bondade</span
-									><span class="tag">Clássico</span>
-								</div>
-								<div class="meta">
-									<span class="badge">Classificação: Livre</span>
-									<span class="byline">Autor: Charles Perrault</span>
-								</div>
-							</div>
-							<p class="texto_livro">
-								Moça bondosa maltratada pela madrasta e suas filhas, Cinderela
-								recebe a ajuda de uma fada madrinha para ir ao baile. Ao perder
-								o sapatinho de cristal, o príncipe inicia a busca por sua dona.
-							</p>
-						</div>
-					</article>
-
-					<!-- BRANCA DE NEVE -->
-					<article
-						class="card"
-						tabindex="0"
-						data-title="Branca de Neve"
-						data-story="Perseguida por sua madrasta, a rainha má, Branca de Neve encontra abrigo na casa de sete anões. Um feitiço a faz dormir até o beijo do amor verdadeiro."
-						data-link="https://www.amazon.com.br/s?k=branca+de+neve+livro"
-						data-author="Irmãos Grimm"
-						data-rating="Livre"
+						Fábulas
+					</button>
+					<button
+						class="subtab"
+						id="genre-tab-poemas"
+						role="tab"
+						aria-selected="false"
+						aria-controls="genre-poemas"
+						tabindex="-1"
 					>
-						<div class="livro" id="livro-branca-de-neve">
-							<div class="thumb" aria-hidden>
-								<img
-									src="./capa_livros/branca_de_neve.webp"
-									alt="Capa do livro Branca de Neve"
-								/>
-							</div>
-							<div class="categorias">
-								<div class="title">Branca de Neve</div>
-								<h3 class="categorias_texto">Categorias</h3>
-								<div class="tags">
-									<span class="tag">Coragem</span><span class="tag">Magia</span>
-								</div>
-								<div class="meta">
-									<span class="badge">Classificação: Livre</span>
-									<span class="byline">Autores: Irmãos Grimm</span>
-								</div>
-							</div>
-							<p class="texto_livro">
-								Perseguida por sua madrasta, a rainha má, Branca de Neve
-								encontra abrigo na casa de sete anões. Um feitiço a faz dormir
-								até o beijo do amor verdadeiro.
-							</p>
-						</div>
-					</article>
-
-					<!-- CHAPEUZINHO VERMELHO -->
-					<article
-						class="card"
-						tabindex="0"
-						data-title="Chapeuzinho Vermelho"
-						data-story="Uma menina visita a avó e cruza o caminho com um lobo astuto. A história alerta sobre prudência e seguir bons conselhos."
-						data-link="https://www.amazon.com.br/s?k=chapeuzinho+vermelho+livro"
-						data-author="Charles Perrault"
-						data-rating="Livre"
+						Poemas
+					</button>
+					<button
+						class="subtab"
+						id="genre-tab-romances"
+						role="tab"
+						aria-selected="false"
+						aria-controls="genre-romances"
+						tabindex="-1"
 					>
-						<div class="livro" id="livro-chapeuzinho-vermelho">
-							<div class="thumb" aria-hidden>
-								<img
-									src="./capa_livros/chapeuzin_vermelho.png"
-									alt="Capa do livro Chapeuzinho Vermelho"
-								/>
-							</div>
-							<div class="categorias">
-								<div class="title">Chapeuzinho Vermelho</div>
-								<h3 class="categorias_texto">Categorias</h3>
-								<div class="tags">
-									<span class="tag">Aventura</span
-									><span class="tag">Cuidado</span>
-								</div>
-								<div class="meta">
-									<span class="badge">Classificação: Livre</span>
-									<span class="byline">Autor: Charles Perrault</span>
-								</div>
-							</div>
-							<p class="texto_livro">
-								Uma menina visita a avó e cruza o caminho com um lobo astuto. A
-								história alerta sobre prudência e seguir bons conselhos.
-							</p>
-						</div>
-					</article>
-
-					<!-- A BELA E A FERA -->
-					<article
-						class="card"
-						tabindex="0"
-						data-title="A Bela e a Fera"
-						data-story="Bela troca de lugar com o pai e passa a viver no castelo de uma Fera. Com o tempo, descobre a gentileza por trás da aparência."
-						data-link="https://www.amazon.com.br/s?k=a+bela+e+a+fera+livro"
-						data-author="Jeanne-Marie Leprince de Beaumont"
-						data-rating="Livre"
+						Romances infantis
+					</button>
+					<button
+						class="subtab"
+						id="genre-tab-lendas"
+						role="tab"
+						aria-selected="false"
+						aria-controls="genre-lendas"
+						tabindex="-1"
 					>
-						<div class="livro" id="livro-a-bela-e-a-fera">
-							<div class="thumb" aria-hidden>
-								<img
-									src="./capa_livros/a_bela_e_a_fera.png"
-									alt="Capa do livro A Bela e a Fera"
-								/>
-							</div>
-							<div class="categorias">
-								<div class="title">A Bela e a Fera</div>
-								<h3 class="categorias_texto">Categorias</h3>
-								<div class="tags">
-									<span class="tag">Empatia</span><span class="tag">Amor</span>
-								</div>
-								<div class="meta">
-									<span class="badge">Classificação: Livre</span>
-									<span class="byline"
-										>Autora: Jeanne-Marie Leprince de Beaumont</span
-									>
-								</div>
-							</div>
-							<p class="texto_livro">
-								Bela troca de lugar com o pai e passa a viver no castelo de uma
-								Fera. Com o tempo, descobre a gentileza por trás da aparência.
-							</p>
-						</div>
-					</article>
-
-					<!-- A BELA ADORMECIDA -->
-					<article
-						class="card"
-						tabindex="0"
-						data-title="A Bela Adormecida"
-						data-story="Amaldiçoada ao nascer, a princesa cai num sono profundo até ser despertada pelo amor verdadeiro."
-						data-link="https://www.amazon.com.br/s?k=a+bela+adormecida+livro"
-						data-author="Charles Perrault"
-						data-rating="Livre"
+						Lendas
+					</button>
+					<button
+						class="subtab"
+						id="genre-tab-contos"
+						role="tab"
+						aria-selected="true"
+						aria-controls="genre-contos"
+						tabindex="-1"
 					>
-						<div class="livro" id="livro-a-bela-adormecida">
-							<div class="thumb" aria-hidden>
-								<img
-									src="./capa_livros/a_bela_adormecida.png"
-									alt="Capa do livro A Bela Adormecida"
-								/>
-							</div>
-							<div class="categorias">
-								<div class="title">A Bela Adormecida</div>
-								<h3 class="categorias_texto">Categorias</h3>
-								<div class="tags">
-									<span class="tag">Destino</span
-									><span class="tag">Encanto</span>
-								</div>
-								<div class="meta">
-									<span class="badge">Classificação: Livre</span>
-									<span class="byline">Autor: Charles Perrault</span>
-								</div>
-							</div>
-							<p class="texto_livro">
-								Amaldiçoada ao nascer, a princesa cai num sono profundo até ser
-								despertada pelo amor verdadeiro.
-							</p>
-						</div>
-					</article>
-
-					<!-- OS TRÊS PORQUINHOS -->
-					<article
-						class="card"
-						tabindex="0"
-						data-title="Os Três Porquinhos"
-						data-story="Três irmãos constroem casas de palha, madeira e tijolos. O lobo tenta derrubá-las, ensinando sobre esforço e preparação."
-						data-link="https://www.amazon.com.br/s?k=os+tr%C3%AAs+porquinhos+livro"
-						data-author="Joseph Jacobs (coletor)"
-						data-rating="Livre"
-					>
-						<div class="livro" id="livro-os-tres-porquinhos">
-							<div class="thumb" aria-hidden>
-								<img
-									src="./capa_livros/os_tres_porquinhos.webp"
-									alt="Capa do livro Os Três Porquinhos"
-								/>
-							</div>
-							<div class="categorias">
-								<div class="title">Os Três Porquinhos</div>
-								<h3 class="categorias_texto">Categorias</h3>
-								<div class="tags">
-									<span class="tag">Trabalho</span
-									><span class="tag">Perseverança</span>
-								</div>
-								<div class="meta">
-									<span class="badge">Classificação: Livre</span>
-									<span class="byline">Autor: Joseph Jacobs (coletor)</span>
-								</div>
-							</div>
-							<p class="texto_livro">
-								Três irmãos constroem casas de palha, madeira e tijolos. O lobo
-								tenta derrubá-las, ensinando sobre esforço e preparação.
-							</p>
-						</div>
-					</article>
-
-					<!-- RAPUNZEL -->
-					<article
-						class="card"
-						tabindex="0"
-						data-title="Rapunzel"
-						data-story="Trancada numa torre, Rapunzel tem cabelos longuíssimos. Um encontro inesperado muda seu destino."
-						data-link="https://www.amazon.com.br/s?k=rapunzel+livro"
-						data-author="Irmãos Grimm"
-						data-rating="Livre"
-					>
-						<div class="livro" id="livro-rapunzel">
-							<div class="thumb" aria-hidden>
-								<img
-									src="./capa_livros/rapunzel.webp"
-									alt="Capa do livro Rapunzel"
-								/>
-							</div>
-							<div class="categorias">
-								<div class="title">Rapunzel</div>
-								<h3 class="categorias_texto">Categorias</h3>
-								<div class="tags">
-									<span class="tag">Liberdade</span
-									><span class="tag">Esperança</span>
-								</div>
-								<div class="meta">
-									<span class="badge">Classificação: Livre</span>
-									<span class="byline">Autores: Irmãos Grimm</span>
-								</div>
-							</div>
-							<p class="texto_livro">
-								Trancada numa torre, Rapunzel tem cabelos longuíssimos. Um
-								encontro inesperado muda seu destino.
-							</p>
-						</div>
-					</article>
-
-					<!-- A PEQUENA SEREIA -->
-					<article
-						class="card"
-						tabindex="0"
-						data-title="A Pequena Sereia"
-						data-story="Uma sereia curiosa deseja viver entre os humanos e faz um pacto arriscado para seguir seu coração."
-						data-link="https://www.amazon.com.br/s?k=a+pequena+sereia+livro"
-						data-author="Hans Christian Andersen"
-						data-rating="Livre"
-					>
-						<div class="livro" id="livro-a-pequena-sereia">
-							<div class="thumb" aria-hidden>
-								<img
-									src="./capa_livros/a_pequena_sereia.webp"
-									alt="Capa do livro A Pequena Sereia"
-								/>
-							</div>
-							<div class="categorias">
-								<div class="title">A Pequena Sereia</div>
-								<h3 class="categorias_texto">Categorias</h3>
-								<div class="tags">
-									<span class="tag">Escolhas</span
-									><span class="tag">Sonhos</span>
-								</div>
-								<div class="meta">
-									<span class="badge">Classificação: Livre</span>
-									<span class="byline">Autor: Hans Christian Andersen</span>
-								</div>
-							</div>
-							<p class="texto_livro">
-								Uma sereia curiosa deseja viver entre os humanos e faz um pacto
-								arriscado para seguir seu coração.
-							</p>
-						</div>
-					</article>
+						Contos de fadas
+					</button>
 				</div>
+
+				<!-- SEÇÕES DE GÊNERO -->
+				<!-- CONTOS DE FADAS (usa seus cards já existentes) -->
+				<section
+					id="genre-contos"
+					class="genre active"
+					role="tabpanel"
+					aria-labelledby="genre-tab-contos"
+				>
+					<div class="grid" id="books-contos">
+						<!-- Os seus cards existentes -->
+						<article
+							class="card"
+							tabindex="0"
+							data-title="Cinderela"
+							data-story="Moça bondosa maltratada pela madrasta e suas filhas, Cinderela recebe a ajuda de uma fada madrinha para ir ao baile. Ao perder o sapatinho de cristal, o príncipe inicia a busca por sua dona."
+							data-link="https://www.amazon.com.br/s?k=cinderela+livro"
+							data-author="Charles Perrault"
+							data-rating="Livre"
+						>
+							<div class="livro" id="livro-cinderela">
+								<div class="thumb" aria-hidden>
+									<img
+										src="./capa_livros/cinderela.png"
+										alt="Capa do livro Cinderela"
+									/>
+								</div>
+								<div class="categorias">
+									<div class="title">Cinderela</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Bondade</span
+										><span class="tag">Clássico</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autor: Charles Perrault</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									Moça bondosa maltratada pela madrasta e suas filhas, Cinderela
+									recebe a ajuda de uma fada madrinha para ir ao baile. Ao
+									perder o sapatinho de cristal, o príncipe inicia a busca por
+									sua dona.
+								</p>
+							</div>
+						</article>
+
+						<article
+							class="card"
+							tabindex="0"
+							data-title="Branca de Neve"
+							data-story="Perseguida pela madrasta, a rainha má, Branca de Neve encontra abrigo na casa de sete anões. Um feitiço a faz dormir até o beijo do amor verdadeiro."
+							data-link="https://www.amazon.com.br/s?k=branca+de+neve+livro"
+							data-author="Irmãos Grimm"
+							data-rating="Livre"
+						>
+							<div class="livro" id="livro-branca-de-neve">
+								<div class="thumb" aria-hidden>
+									<img
+										src="./capa_livros/branca_de_neve.webp"
+										alt="Capa do livro Branca de Neve"
+									/>
+								</div>
+								<div class="categorias">
+									<div class="title">Branca de Neve</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Coragem</span
+										><span class="tag">Magia</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autores: Irmãos Grimm</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									Perseguida pela madrasta, a rainha má, Branca de Neve encontra
+									abrigo na casa de sete anões. Um feitiço a faz dormir até o
+									beijo do amor verdadeiro.
+								</p>
+							</div>
+						</article>
+
+						<article
+							class="card"
+							tabindex="0"
+							data-title="Chapeuzinho Vermelho"
+							data-story="Uma menina visita a avó e cruza o caminho com um lobo astuto. A história alerta sobre prudência e seguir bons conselhos."
+							data-link="https://www.amazon.com.br/s?k=chapeuzinho+vermelho+livro"
+							data-author="Charles Perrault"
+							data-rating="Livre"
+						>
+							<div class="livro" id="livro-chapeuzinho-vermelho">
+								<div class="thumb" aria-hidden>
+									<img
+										src="./capa_livros/chapeuzin_vermelho.png"
+										alt="Capa do livro Chapeuzinho Vermelho"
+									/>
+								</div>
+								<div class="categorias">
+									<div class="title">Chapeuzinho Vermelho</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Aventura</span
+										><span class="tag">Cuidado</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autor: Charles Perrault</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									Uma menina visita a avó e cruza o caminho com um lobo astuto.
+									A história alerta sobre prudência e seguir bons conselhos.
+								</p>
+							</div>
+						</article>
+
+						<article
+							class="card"
+							tabindex="0"
+							data-title="A Bela e a Fera"
+							data-story="Bela troca de lugar com o pai e passa a viver no castelo de uma Fera. Com o tempo, descobre a gentileza por trás da aparência."
+							data-link="https://www.amazon.com.br/s?k=a+bela+e+a+fera+livro"
+							data-author="Jeanne-Marie Leprince de Beaumont"
+							data-rating="Livre"
+						>
+							<div class="livro" id="livro-a-bela-e-a-fera">
+								<div class="thumb" aria-hidden>
+									<img
+										src="./capa_livros/a_bela_e_a_fera.png"
+										alt="Capa do livro A Bela e a Fera"
+									/>
+								</div>
+								<div class="categorias">
+									<div class="title">A Bela e a Fera</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Empatia</span
+										><span class="tag">Amor</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline"
+											>Autora: Jeanne-Marie Leprince de Beaumont</span
+										>
+									</div>
+								</div>
+								<p class="texto_livro">
+									Bela troca de lugar com o pai e passa a viver no castelo de
+									uma Fera. Com o tempo, descobre a gentileza por trás da
+									aparência.
+								</p>
+							</div>
+						</article>
+
+						<article
+							class="card"
+							tabindex="0"
+							data-title="A Bela Adormecida"
+							data-story="Amaldiçoada ao nascer, a princesa cai num sono profundo até ser despertada pelo amor verdadeiro."
+							data-link="https://www.amazon.com.br/s?k=a+bela+adormecida+livro"
+							data-author="Charles Perrault"
+							data-rating="Livre"
+						>
+							<div class="livro" id="livro-a-bela-adormecida">
+								<div class="thumb" aria-hidden>
+									<img
+										src="./capa_livros/a_bela_adormecida.png"
+										alt="Capa do livro A Bela Adormecida"
+									/>
+								</div>
+								<div class="categorias">
+									<div class="title">A Bela Adormecida</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Destino</span
+										><span class="tag">Encanto</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autor: Charles Perrault</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									Amaldiçoada ao nascer, a princesa cai num sono profundo até
+									ser despertada pelo amor verdadeiro.
+								</p>
+							</div>
+						</article>
+
+						<article
+							class="card"
+							tabindex="0"
+							data-title="Os Três Porquinhos"
+							data-story="Três irmãos constroem casas de palha, madeira e tijolos. O lobo tenta derrubá-las, ensinando sobre esforço e preparação."
+							data-link="https://www.amazon.com.br/s?k=os+tr%C3%AAs+porquinhos+livro"
+							data-author="Joseph Jacobs (coletor)"
+							data-rating="Livre"
+						>
+							<div class="livro" id="livro-os-tres-porquinhos">
+								<div class="thumb" aria-hidden>
+									<img
+										src="./capa_livros/os_tres_porquinhos.webp"
+										alt="Capa do livro Os Três Porquinhos"
+									/>
+								</div>
+								<div class="categorias">
+									<div class="title">Os Três Porquinhos</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Trabalho</span
+										><span class="tag">Perseverança</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autor: Joseph Jacobs (coletor)</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									Três irmãos constroem casas de palha, madeira e tijolos. O
+									lobo tenta derrubá-las, ensinando sobre esforço e preparação.
+								</p>
+							</div>
+						</article>
+
+						<article
+							class="card"
+							tabindex="0"
+							data-title="Rapunzel"
+							data-story="Trancada numa torre, Rapunzel tem cabelos longuíssimos. Um encontro inesperado muda seu destino."
+							data-link="https://www.amazon.com.br/s?k=rapunzel+livro"
+							data-author="Irmãos Grimm"
+							data-rating="Livre"
+						>
+							<div class="livro" id="livro-rapunzel">
+								<div class="thumb" aria-hidden>
+									<img
+										src="./capa_livros/rapunzel.webp"
+										alt="Capa do livro Rapunzel"
+									/>
+								</div>
+								<div class="categorias">
+									<div class="title">Rapunzel</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Liberdade</span
+										><span class="tag">Esperança</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autores: Irmãos Grimm</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									Trancada numa torre, Rapunzel tem cabelos longuíssimos. Um
+									encontro inesperado muda seu destino.
+								</p>
+							</div>
+						</article>
+
+						<article
+							class="card"
+							tabindex="0"
+							data-title="A Pequena Sereia"
+							data-story="Uma sereia curiosa deseja viver entre os humanos e faz um pacto arriscado para seguir seu coração."
+							data-link="https://www.amazon.com.br/s?k=a+pequena+sereia+livro"
+							data-author="Hans Christian Andersen"
+							data-rating="Livre"
+						>
+							<div class="livro" id="livro-a-pequena-sereia">
+								<div class="thumb" aria-hidden>
+									<img
+										src="./capa_livros/a_pequena_sereia.webp"
+										alt="Capa do livro A Pequena Sereia"
+									/>
+								</div>
+								<div class="categorias">
+									<div class="title">A Pequena Sereia</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Escolhas</span
+										><span class="tag">Sonhos</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autor: Hans Christian Andersen</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									Uma sereia curiosa deseja viver entre os humanos e faz um
+									pacto arriscado para seguir seu coração.
+								</p>
+							</div>
+						</article>
+					</div>
+				</section>
+
+				<!-- FÁBULAS -->
+				<section
+					id="genre-fabulas"
+					class="genre"
+					role="tabpanel"
+					aria-labelledby="genre-tab-fabulas"
+					hidden
+				>
+					<div class="grid">
+						<article
+							class="card"
+							tabindex="0"
+							data-title="A Cigarra e a Formiga"
+							data-story="A cigarra canta o verão inteiro enquanto a formiga trabalha. No inverno, a preparação faz toda a diferença."
+							data-link="https://www.amazon.com.br/s?k=cigarra+formiga+livro"
+							data-author="Vários"
+							data-rating="Livre"
+						>
+							<div class="livro">
+								<div class="thumb" aria-hidden>🐜</div>
+								<div class="categorias">
+									<div class="title">A Cigarra e a Formiga</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Trabalho</span
+										><span class="tag">Responsabilidade</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autor: Vários</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									A cigarra canta o verão inteiro enquanto a formiga trabalha.
+									No inverno, a preparação faz toda a diferença.
+								</p>
+							</div>
+						</article>
+
+						<article
+							class="card"
+							tabindex="0"
+							data-title="A Raposa e as Uvas"
+							data-story="Sem alcançar as uvas, a raposa diz que elas estavam verdes. Uma lição sobre racionalização."
+							data-link="https://www.amazon.com.br/s?k=raposa+uvas+Vários"
+							data-author="Vários"
+							data-rating="Livre"
+						>
+							<div class="livro">
+								<div class="thumb" aria-hidden>🦊</div>
+								<div class="categorias">
+									<div class="title">A Raposa e as Uvas</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Humildade</span
+										><span class="tag">Autoconhecimento</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autor: Vários</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									Sem alcançar as uvas, a raposa diz que elas estavam verdes.
+									Uma lição sobre racionalização.
+								</p>
+							</div>
+						</article>
+
+						<article
+							class="card"
+							tabindex="0"
+							data-title="O Leão e o Rato"
+							data-story="Um pequeno gesto de bondade pode voltar multiplicado: até um ratinho pode ajudar um leão."
+							data-link="https://www.amazon.com.br/s?k=le%C3%A3o+e+o+rato+Vários"
+							data-author="Vários"
+							data-rating="Livre"
+						>
+							<div class="livro">
+								<div class="thumb" aria-hidden>🦁</div>
+								<div class="categorias">
+									<div class="title">O Leão e o Rato</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Gratidão</span
+										><span class="tag">Amizade</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autor: Vários</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									Um pequeno gesto de bondade pode voltar multiplicado: até um
+									ratinho pode ajudar um leão.
+								</p>
+							</div>
+						</article>
+
+						<article
+							class="card"
+							tabindex="0"
+							data-title="A Lebre e a Tartaruga"
+							data-story="Devagar e sempre: a constância supera a soberba da velocidade."
+							data-link="https://www.amazon.com.br/s?k=lebre+tartaruga+Vários"
+							data-author="Vários"
+							data-rating="Livre"
+						>
+							<div class="livro">
+								<div class="thumb" aria-hidden>🐢</div>
+								<div class="categorias">
+									<div class="title">A Lebre e a Tartaruga</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Perseverança</span
+										><span class="tag">Humildade</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autor: Vários</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									Devagar e sempre: a constância supera a soberba da velocidade.
+								</p>
+							</div>
+						</article>
+
+						<article
+							class="card"
+							tabindex="0"
+							data-title="O Lobo e o Cordeiro"
+							data-story="Quando alguém quer acusar, qualquer pretexto serve. Uma reflexão sobre justiça."
+							data-link="https://www.amazon.com.br/s?k=lobo+cordeiro+Vários"
+							data-author="Vários"
+							data-rating="Livre"
+						>
+							<div class="livro">
+								<div class="thumb" aria-hidden>🐺</div>
+								<div class="categorias">
+									<div class="title">O Lobo e o Cordeiro</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Justiça</span
+										><span class="tag">Prudência</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autor: Vários</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									Quando alguém quer acusar, qualquer pretexto serve. Uma
+									reflexão sobre justiça.
+								</p>
+							</div>
+						</article>
+					</div>
+				</section>
+
+				<!-- POEMAS -->
+				<section
+					id="genre-poemas"
+					class="genre"
+					role="tabpanel"
+					aria-labelledby="genre-tab-poemas"
+					hidden
+				>
+					<div class="grid">
+						<article
+							class="card"
+							tabindex="0"
+							data-title="Ou Isto ou Aquilo"
+							data-story="Poema clássico que brinca com escolhas e possibilidades do cotidiano infantil."
+							data-link="https://www.amazon.com.br/s?k=ou+isto+ou+aquilo"
+							data-author="Cecília Meireles"
+							data-rating="Livre"
+						>
+							<div class="livro">
+								<div class="thumb" aria-hidden>📘</div>
+								<div class="categorias">
+									<div class="title">Ou Isto ou Aquilo</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Imaginação</span
+										><span class="tag">Brincadeira</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autora: Cecília Meireles</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									Poema clássico que brinca com escolhas e possibilidades do
+									cotidiano infantil.
+								</p>
+							</div>
+						</article>
+
+						<article
+							class="card"
+							tabindex="0"
+							data-title="A Casa"
+							data-story="Versos simples e marcantes que apresentam uma casa de portão sem tranca e de teto sem telha."
+							data-link="https://www.amazon.com.br/s?k=a+casa+vinicius+de+moraes"
+							data-author="Vinicius de Moraes"
+							data-rating="Livre"
+						>
+							<div class="livro">
+								<div class="thumb" aria-hidden>🏠</div>
+								<div class="categorias">
+									<div class="title">A Casa</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Ritmo</span
+										><span class="tag">Infância</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autor: Vinicius de Moraes</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									Versos simples e marcantes que apresentam uma casa de portão
+									sem tranca e de teto sem telha.
+								</p>
+							</div>
+						</article>
+
+						<article
+							class="card"
+							tabindex="0"
+							data-title="O Pato"
+							data-story="Poema musical e divertido do livro Arca de Noé, que encanta gerações."
+							data-link="https://www.amazon.com.br/s?k=arca+de+no%C3%A9+vinicius"
+							data-author="Vinicius de Moraes"
+							data-rating="Livre"
+						>
+							<div class="livro">
+								<div class="thumb" aria-hidden>🦆</div>
+								<div class="categorias">
+									<div class="title">O Pato</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Música</span><span class="tag">Rima</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autor: Vinicius de Moraes</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									Poema musical e divertido do livro Arca de Noé, que encanta
+									gerações.
+								</p>
+							</div>
+						</article>
+
+						<article
+							class="card"
+							tabindex="0"
+							data-title="O Relógio"
+							data-story="Brinca com o tempo e com a musicalidade das palavras, marcando tique-taques na imaginação."
+							data-link="https://www.amazon.com.br/s?k=o+rel%C3%B3gio+vinicius+de+moraes"
+							data-author="Vinicius de Moraes"
+							data-rating="Livre"
+						>
+							<div class="livro">
+								<div class="thumb" aria-hidden>⏰</div>
+								<div class="categorias">
+									<div class="title">O Relógio</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Tempo</span><span class="tag">Som</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autor: Vinicius de Moraes</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									Brinca com o tempo e com a musicalidade das palavras, marcando
+									tique-taques na imaginação.
+								</p>
+							</div>
+						</article>
+
+						<article
+							class="card"
+							tabindex="0"
+							data-title="Poemas para Crianças"
+							data-story="Seleção de poemas curtos, lúdicos e inteligentes para leitores iniciantes."
+							data-link="https://www.amazon.com.br/s?k=jos%C3%A9+paulo+paes+poemas"
+							data-author="José Paulo Paes"
+							data-rating="Livre"
+						>
+							<div class="livro">
+								<div class="thumb" aria-hidden>📗</div>
+								<div class="categorias">
+									<div class="title">Poemas para Crianças</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Brincadeira</span
+										><span class="tag">Linguagem</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autor: José Paulo Paes</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									Seleção de poemas curtos, lúdicos e inteligentes para leitores
+									iniciantes.
+								</p>
+							</div>
+						</article>
+					</div>
+				</section>
+
+				<!-- ROMANCES INFANTIS -->
+				<section
+					id="genre-romances"
+					class="genre"
+					role="tabpanel"
+					aria-labelledby="genre-tab-romances"
+					hidden
+				>
+					<div class="grid">
+						<article
+							class="card"
+							tabindex="0"
+							data-title="O Pequeno Príncipe"
+							data-story="Um encontro com um pequeno viajante de outro planeta que fala de amizade, amor e responsabilidade."
+							data-link="https://www.amazon.com.br/s?k=o+pequeno+pr%C3%ADncipe"
+							data-author="Antoine de Saint-Exupéry"
+							data-rating="Livre"
+						>
+							<div class="livro">
+								<div class="thumb" aria-hidden>👑</div>
+								<div class="categorias">
+									<div class="title">O Pequeno Príncipe</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Amizade</span
+										><span class="tag">Filosofia</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autor: Antoine de Saint-Exupéry</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									Um encontro com um pequeno viajante de outro planeta que fala
+									de amizade, amor e responsabilidade.
+								</p>
+							</div>
+						</article>
+
+						<article
+							class="card"
+							tabindex="0"
+							data-title="O Menino Maluquinho"
+							data-story="As travessuras, a imaginação e o coração enorme de um menino inesquecível."
+							data-link="https://www.amazon.com.br/s?k=o+menino+maluquinho"
+							data-author="Ziraldo"
+							data-rating="Livre"
+						>
+							<div class="livro">
+								<div class="thumb" aria-hidden>🥄</div>
+								<div class="categorias">
+									<div class="title">O Menino Maluquinho</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Família</span
+										><span class="tag">Humor</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autor: Ziraldo</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									As travessuras, a imaginação e o coração enorme de um menino
+									inesquecível.
+								</p>
+							</div>
+						</article>
+
+						<article
+							class="card"
+							tabindex="0"
+							data-title="Reinações de Narizinho"
+							data-story="As primeiras aventuras do Sítio do Picapau Amarelo, cheias de fantasia e brasilidade."
+							data-link="https://www.amazon.com.br/s?k=reina%C3%A7%C3%B5es+de+narizinho"
+							data-author="Monteiro Lobato"
+							data-rating="Livre"
+						>
+							<div class="livro">
+								<div class="thumb" aria-hidden>🪶</div>
+								<div class="categorias">
+									<div class="title">Reinações de Narizinho</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Fantasia</span
+										><span class="tag">Brasil</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autor: Monteiro Lobato</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									As primeiras aventuras do Sítio do Picapau Amarelo, cheias de
+									fantasia e brasilidade.
+								</p>
+							</div>
+						</article>
+
+						<article
+							class="card"
+							tabindex="0"
+							data-title="As Aventuras de Tom Sawyer"
+							data-story="Travessuras e amadurecimento às margens do rio Mississippi."
+							data-link="https://www.amazon.com.br/s?k=tom+sawyer+livro"
+							data-author="Mark Twain"
+							data-rating="Livre"
+						>
+							<div class="livro">
+								<div class="thumb" aria-hidden>🛶</div>
+								<div class="categorias">
+									<div class="title">As Aventuras de Tom Sawyer</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Aventura</span
+										><span class="tag">Amizade</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autor: Mark Twain</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									Travessuras e amadurecimento às margens do rio Mississippi.
+								</p>
+							</div>
+						</article>
+
+						<article
+							class="card"
+							tabindex="0"
+							data-title="Matilda"
+							data-story="Uma menina brilhante enfrenta adultos cruéis com inteligência e um toque de magia."
+							data-link="https://www.amazon.com.br/s?k=matilda+livro"
+							data-author="Roald Dahl"
+							data-rating="Livre"
+						>
+							<div class="livro">
+								<div class="thumb" aria-hidden>📚</div>
+								<div class="categorias">
+									<div class="title">Matilda</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Coragem</span
+										><span class="tag">Escola</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autor: Roald Dahl</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									Uma menina brilhante enfrenta adultos cruéis com inteligência
+									e um toque de magia.
+								</p>
+							</div>
+						</article>
+					</div>
+				</section>
+
+				<!-- LENDAS -->
+				<section
+					id="genre-lendas"
+					class="genre"
+					role="tabpanel"
+					aria-labelledby="genre-tab-lendas"
+					hidden
+				>
+					<div class="grid">
+						<article
+							class="card"
+							tabindex="0"
+							data-title="Saci-Pererê"
+							data-story="Travesso de uma perna só e carapuça vermelha, adora pregar peças e confundir viajantes."
+							data-link="https://www.amazon.com.br/s?k=saci+perer%C3%AA+livro"
+							data-author="Folclore brasileiro (tradição oral)"
+							data-rating="Livre"
+						>
+							<div class="livro">
+								<div class="thumb" aria-hidden>🧢</div>
+								<div class="categorias">
+									<div class="title">Saci-Pererê</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Folclore</span
+										><span class="tag">Travessura</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autor: Folclore brasileiro</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									Travesso de uma perna só e carapuça vermelha, adora pregar
+									peças e confundir viajantes.
+								</p>
+							</div>
+						</article>
+
+						<article
+							class="card"
+							tabindex="0"
+							data-title="Iara"
+							data-story="A sereia dos rios encanta com seu canto e beleza, atraindo curiosos para as águas."
+							data-link="https://www.amazon.com.br/s?k=iara+folclore"
+							data-author="Folclore brasileiro (tradição oral)"
+							data-rating="Livre"
+						>
+							<div class="livro">
+								<div class="thumb" aria-hidden>🧜‍♀️</div>
+								<div class="categorias">
+									<div class="title">Iara</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Encanto</span
+										><span class="tag">Natureza</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autor: Folclore brasileiro</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									A sereia dos rios encanta com seu canto e beleza, atraindo
+									curiosos para as águas.
+								</p>
+							</div>
+						</article>
+
+						<article
+							class="card"
+							tabindex="0"
+							data-title="Curupira"
+							data-story="Guardião das florestas, de cabelos flamejantes e pés virados, protege os animais dos caçadores."
+							data-link="https://www.amazon.com.br/s?k=curupira+livro"
+							data-author="Folclore brasileiro (tradição oral)"
+							data-rating="Livre"
+						>
+							<div class="livro">
+								<div class="thumb" aria-hidden>🔥</div>
+								<div class="categorias">
+									<div class="title">Curupira</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Natureza</span
+										><span class="tag">Proteção</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autor: Folclore brasileiro</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									Guardião das florestas, de cabelos flamejantes e pés virados,
+									protege os animais dos caçadores.
+								</p>
+							</div>
+						</article>
+
+						<article
+							class="card"
+							tabindex="0"
+							data-title="Boto-cor-de-rosa"
+							data-story="À noite, o boto vira rapaz elegante e conquista corações nas festas ribeirinhas."
+							data-link="https://www.amazon.com.br/s?k=boto+cor+de+rosa+lenda"
+							data-author="Folclore amazônico (tradição oral)"
+							data-rating="Livre"
+						>
+							<div class="livro">
+								<div class="thumb" aria-hidden>🐬</div>
+								<div class="categorias">
+									<div class="title">Boto-cor-de-rosa</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Magia</span
+										><span class="tag">Mistério</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: Livre</span
+										><span class="byline">Autor: Folclore amazônico</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									À noite, o boto vira rapaz elegante e conquista corações nas
+									festas ribeirinhas.
+								</p>
+							</div>
+						</article>
+
+						<article
+							class="card"
+							tabindex="0"
+							data-title="Mula sem Cabeça"
+							data-story="Condenada por uma maldição, corre em chamas pelas madrugadas, espalhando susto e respeito."
+							data-link="https://www.amazon.com.br/s?k=mula+sem+cabe%C3%A7a+lenda"
+							data-author="Folclore brasileiro (tradição oral)"
+							data-rating="12 anos"
+						>
+							<div class="livro">
+								<div class="thumb" aria-hidden>🐎</div>
+								<div class="categorias">
+									<div class="title">Mula sem Cabeça</div>
+									<h3 class="categorias_texto">Categorias</h3>
+									<div class="tags">
+										<span class="tag">Assombro</span
+										><span class="tag">Tradição</span>
+									</div>
+									<div class="meta">
+										<span class="badge">Classificação: 12 anos</span
+										><span class="byline">Autor: Folclore brasileiro</span>
+									</div>
+								</div>
+								<p class="texto_livro">
+									Condenada por uma maldição, corre em chamas pelas madrugadas,
+									espalhando susto e respeito.
+								</p>
+							</div>
+						</article>
+					</div>
+				</section>
 			</section>
 
 			<!-- CONTATOS -->
@@ -883,7 +1552,7 @@
 						📖
 					</figure>
 					<div class="dialog-body">
-						<h2 id="modal-title">Título</h2>
+						<h2 id="modal-title" tabindex="-1">Título</h2>
 						<div class="dialog-meta">
 							<div>
 								<strong>Autor(a):</strong> <span id="modal-author">—</span>
@@ -924,7 +1593,7 @@
 			const $$ = (sel, parent = document) =>
 				Array.from(parent.querySelectorAll(sel));
 
-			// Tabs
+			// Tabs principais
 			const tabHome = $("#tab-home");
 			const tabContatos = $("#tab-contatos");
 			const secHome = $("#home");
@@ -940,6 +1609,38 @@
 			tabHome.addEventListener("click", () => setTab("home"));
 			tabContatos.addEventListener("click", () => setTab("contatos"));
 
+			// Subtabs (categorias)
+			const genreTabs = [
+				$("#genre-tab-fabulas"),
+				$("#genre-tab-poemas"),
+				$("#genre-tab-romances"),
+				$("#genre-tab-lendas"),
+				$("#genre-tab-contos"),
+			];
+			const genreSections = {
+				"genre-tab-fabulas": $("#genre-fabulas"),
+				"genre-tab-poemas": $("#genre-poemas"),
+				"genre-tab-romances": $("#genre-romances"),
+				"genre-tab-lendas": $("#genre-lendas"),
+				"genre-tab-contos": $("#genre-contos"),
+			};
+
+			function setGenreTab(btn) {
+				genreTabs.forEach((t) => {
+					const active = t === btn;
+					t.setAttribute("aria-selected", active);
+					t.tabIndex = active ? 0 : -1;
+					const panel = genreSections[t.id];
+					if (panel) {
+						panel.classList.toggle("active", active);
+						panel.hidden = !active;
+					}
+				});
+			}
+			genreTabs.forEach((t) =>
+				t.addEventListener("click", () => setGenreTab(t))
+			);
+
 			// Modal
 			const modal = $("#modal");
 			const backdrop = $("#backdrop");
@@ -949,52 +1650,90 @@
 			const mLink = $("#modal-link");
 			const mAuthor = $("#modal-author");
 			const mRating = $("#modal-rating");
+			const modalFigure = $("#modal-figure");
+			const mainEl = $("main");
+			let lastFocused = null;
+
+			const focusableSelector = [
+				"a[href]",
+				"button:not([disabled])",
+				"[tabindex]:not([tabindex='-1'])",
+			].join(",");
+
+			function trapFocus(e) {
+				if (!modal.classList.contains("open")) return;
+				const focusables = Array.from(
+					modal.querySelectorAll(focusableSelector)
+				).filter((el) => el.offsetParent !== null);
+				if (focusables.length === 0) return;
+				const first = focusables[0],
+					last = focusables[focusables.length - 1];
+				if (e.key === "Tab") {
+					if (e.shiftKey && document.activeElement === first) {
+						e.preventDefault();
+						last.focus();
+					} else if (!e.shiftKey && document.activeElement === last) {
+						e.preventDefault();
+						first.focus();
+					}
+				}
+			}
 
 			function openModal({ title, story, link, icon, author, rating }) {
+				lastFocused = document.activeElement;
 				mTitle.textContent = title;
 				mStory.textContent = story;
 				mLink.href = link || "#";
-				$("#modal-figure").textContent = icon || "📚";
+				modalFigure.textContent = icon || "📚";
 				mAuthor.textContent = author || "—";
 				mRating.textContent = rating || "—";
 				modal.classList.add("open");
 				modal.setAttribute("aria-hidden", "false");
 				document.body.style.overflow = "hidden";
+				mainEl.setAttribute("aria-hidden", "true");
+				setTimeout(() => mTitle.focus(), 0);
+				document.addEventListener("keydown", trapFocus);
 			}
 			function closeModal() {
 				modal.classList.remove("open");
 				modal.setAttribute("aria-hidden", "true");
 				document.body.style.overflow = "";
+				mainEl.removeAttribute("aria-hidden");
+				document.removeEventListener("keydown", trapFocus);
+				if (lastFocused) lastFocused.focus();
 			}
-
 			backdrop.addEventListener("click", closeModal);
 			closeBtn.addEventListener("click", closeModal);
 			document.addEventListener("keydown", (e) => {
 				if (e.key === "Escape") closeModal();
 			});
 
-			// Clique nos cards
-			$$("#books .card").forEach((card) => {
-				function getIconFromCard() {
-					const t = card.querySelector(".thumb");
-					return t ? t.textContent.trim() : "📖";
-				}
-				const payload = {
-					title: card.dataset.title,
-					story: card.dataset.story,
-					link: card.dataset.link,
-					author: card.dataset.author,
-					rating: card.dataset.rating,
-					icon: getIconFromCard(),
-				};
-				card.addEventListener("click", () => openModal(payload));
-				card.addEventListener("keydown", (e) => {
-					if (e.key === "Enter" || e.key === " ") {
-						e.preventDefault();
-						openModal(payload);
-					}
+			// Clique nos cards (todas as seções)
+			function iconFromCard(card) {
+				const t = card.querySelector(".thumb");
+				// Se houver emoji/texto, usa; se houver <img>, usa um ícone padrão
+				return t && t.textContent.trim() ? t.textContent.trim() : "📖";
+			}
+			function attachCardHandlers(root = document) {
+				$$("article.card", root).forEach((card) => {
+					const payload = {
+						title: card.dataset.title,
+						story: card.dataset.story,
+						link: card.dataset.link,
+						author: card.dataset.author,
+						rating: card.dataset.rating,
+						icon: iconFromCard(card),
+					};
+					card.addEventListener("click", () => openModal(payload));
+					card.addEventListener("keydown", (e) => {
+						if (e.key === "Enter" || e.key === " ") {
+							e.preventDefault();
+							openModal(payload);
+						}
+					});
 				});
-			});
+			}
+			attachCardHandlers(document);
 
 			// Ano atual
 			$("#year").textContent = new Date().getFullYear();
